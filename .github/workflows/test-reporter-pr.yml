@@ -1,4 +1,4 @@
-name: 'PR Reporter'
+name: 'Test Reporter'
 
 on:
   workflow_run:
@@ -6,15 +6,14 @@ on:
     types:
       - completed
 jobs:
-  Create_Report:
+  Report:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
-    - uses: dorny/test-reporter@v1
-      with:
-        artifact: test-results
-        name: Reporter
-        path: '*.xml'
-        reporter: java-junit
-        fail-on-error: false
-        
+      - uses: dorny/test-reporter@v1
+        with:
+          artifact: test-results
+          name: Reporter
+          path: '*.xml'
+          reporter: java-junit
+          fail-on-error: false
